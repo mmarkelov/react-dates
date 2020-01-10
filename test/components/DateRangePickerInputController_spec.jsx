@@ -222,6 +222,23 @@ describe('DateRangePickerInputController', () => {
           expect(isSameDay(onDatesChangeArgs.endDate, futureDate)).to.equal(true);
         });
 
+        it('calls props.onClose with props.startDate and provided end date', () => {
+          const onCloseStub = sinon.stub();
+          const wrapper = shallow((
+            <DateRangePickerInputController
+              onClose={onCloseStub}
+              startDate={startDate}
+            />
+          ));
+          wrapper.instance().onEndDateChange(validFutureDateString);
+          expect(onCloseStub.callCount).to.equal(1);
+
+          const onCloseArgs = onCloseStub.getCall(0).args[0];
+          const futureDate = moment(validFutureDateString);
+          expect(onCloseArgs.startDate).to.equal(startDate);
+          expect(isSameDay(onCloseArgs.endDate, futureDate)).to.equal(true);
+        });
+
         describe('props.onFocusChange', () => {
           it('is called once', () => {
             const onFocusChangeStub = sinon.stub();
