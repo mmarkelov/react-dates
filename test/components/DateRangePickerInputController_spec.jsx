@@ -231,11 +231,11 @@ describe('DateRangePickerInputController', () => {
             />
           ));
           wrapper.instance().onEndDateChange(validFutureDateString);
-          expect(onCloseStub.callCount).to.equal(1);
+          expect(onCloseStub).to.have.property('callCount', 1);
 
-          const onCloseArgs = onCloseStub.getCall(0).args[0];
+          const [onCloseArgs] = onCloseStub.getCall(0).args;
           const futureDate = moment(validFutureDateString);
-          expect(onCloseArgs.startDate).to.equal(startDate);
+          expect(onCloseArgs).to.have.property('startDate', startDate);
           expect(isSameDay(onCloseArgs.endDate, futureDate)).to.equal(true);
         });
 
